@@ -26,6 +26,18 @@ namespace KarakterekOOP
 		public int Eletero { get => eletero; set => eletero = value; }
 		public int Ero { get => ero; set => ero = value; }
 
+		public bool MeghaladjaE(int erossegTobbMint)
+		{
+			if (ero > erossegTobbMint)
+			{
+				return true;
+			}
+			else
+			{
+				return false; 
+			}
+		} 
+
 		public override string ToString()
 		{
 			return $"{nev} - {szint}, Életpont: {eletero}, Hadierő: {ero} ";

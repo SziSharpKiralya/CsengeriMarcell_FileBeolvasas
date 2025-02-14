@@ -10,12 +10,15 @@ namespace KarakterekOOP
 			Beolvasas("karakterek.txt", karakterek);
 			LegmagasabbEletero(karakterek);
 			AtlagSzint(karakterek);
+			RendezesEroSzerint(karakterek);
+			Console.WriteLine($"{karakterek[2].Nev}-nek a támadása igaz-e hogy meghaladja a 20-at: {karakterek[2].MeghaladjaE(20)}");
+			Console.WriteLine($"{karakterek[6].Nev}-nek a támadása igaz-e hogy meghaladja a 89-at: {karakterek[6].MeghaladjaE(89)}");
 
-			foreach (var item in karakterek)
-            {
-				//Console.WriteLine(item.ToString());
-            }
-        }
+			//foreach (var item in karakterek)
+			//{
+			//	Console.WriteLine(item.ToString());
+			//}
+		}
 
 		static void LegmagasabbEletero(List<Karakter> karakterek)
 		{
@@ -39,6 +42,26 @@ namespace KarakterekOOP
 			}
 			Console.WriteLine($"Karakterek szintjének átlaga: {osszSzint/karakterek.Count}");
 		}
+
+		static void RendezesEroSzerint(List<Karakter> karakterek)
+		{
+			for (int i = 0; i < karakterek.Count; i++) {
+				for (int j = 0; j < karakterek.Count; j++)
+				{
+					if ((karakterek[i].Ero > karakterek[j].Ero))
+					{
+						Karakter csere = karakterek[i];
+						karakterek[i] = karakterek[j];
+						karakterek [j] = csere;
+					}
+				}
+			}
+            Console.WriteLine("Karakterek szintje erejük szerint újra lett rendezve");
+            //foreach (var item in karakterek)
+            //{
+            //	//Console.WriteLine(item.Ero);
+            //}
+        }
 
 		static void Beolvasas(string fileNev, List<Karakter> karakterek)
 		{
