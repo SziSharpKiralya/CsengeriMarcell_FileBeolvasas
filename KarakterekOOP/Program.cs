@@ -13,13 +13,39 @@ namespace KarakterekOOP
 			RendezesEroSzerint(karakterek);
 			Console.WriteLine($"{karakterek[2].Nev}-nek a támadása igaz-e hogy meghaladja a 20-at: {karakterek[2].MeghaladjaE(20)}");
 			Console.WriteLine($"{karakterek[6].Nev}-nek a támadása igaz-e hogy meghaladja a 89-at: {karakterek[6].MeghaladjaE(89)}");
-
+			AdatokFajlba(karakterek);
+			AdatokBeolvasasaFajlbol("karakterek.csv", karakterek);
 			//foreach (var item in karakterek)
 			//{
 			//	Console.WriteLine(item.ToString());
 			//}
 		}
+		static void AdatokFajlba(List<Karakter> karakterek)
+		{
+			karakterek.Clear();
+			string szoveg = "";
+			szoveg += "Nev;Szint;Eletero;Ero\n";
+			foreach (var item in karakterek)
+			{
+				szoveg += item.Nev + ";" + item.Szint + ";" + item.Eletero + ";" + item.Ero + "\n";
+			}
+            File.WriteAllText("./karakterek.csv", szoveg);
+		}
+		static void AdatokBeolvasasaFajlbol(string fileNev, List<Karakter> karakterek)
+		{
+			karakterek.Clear();
+			StreamReader sr = new StreamReader(fileNev);
+			sr.ReadLine();
 
+			while (!sr.EndOfStream)
+			{
+				string line = sr.ReadLine();
+				string[] szavak = line.Split(";");
+                Karakter karakter = new Karakter(szavak[0], Convert.ToInt16(szavak[1]), Convert.ToInt16(szavak[2]), Convert.ToInt16(szavak[3]));
+				karakterek.Add(karakter);
+			}
+			Console.WriteLine("Karakterek be lettek olvasva CSV fájlból");
+		}
 		static void LegmagasabbEletero(List<Karakter> karakterek)
 		{
 			Karakter legnagyobb = karakterek[0];
@@ -75,6 +101,7 @@ namespace KarakterekOOP
 				Karakter karakter = new Karakter(szavak[0], Convert.ToInt16(szavak[1]), Convert.ToInt16(szavak[2]), Convert.ToInt16(szavak[3]));
 				karakterek.Add(karakter);
 			}
+			Console.WriteLine("Karakterek be lettek olvasva TXT fájlból");
 		}
 	}
 }
