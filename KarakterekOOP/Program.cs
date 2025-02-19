@@ -11,15 +11,18 @@ namespace KarakterekOOP
 			LegmagasabbEletero(karakterek);
 			AtlagSzint(karakterek);
 			RendezesEroSzerint(karakterek);
-			Console.WriteLine($"{karakterek[2].Nev}-nek a támadása igaz-e hogy meghaladja a 20-at: {karakterek[2].MeghaladjaE(20)}");
+            HaromLegjobb(karakterek);
+			Csata(karakterek[0], karakterek[1]);
+            Console.WriteLine($"{karakterek[2].Nev}-nek a támadása igaz-e hogy meghaladja a 20-at: {karakterek[2].MeghaladjaE(20)}");
 			Console.WriteLine($"{karakterek[6].Nev}-nek a támadása igaz-e hogy meghaladja a 89-at: {karakterek[6].MeghaladjaE(89)}");
 			AdatokFajlba(karakterek);
 			AdatokBeolvasasaFajlbol("karakterek.csv", karakterek);
-			//foreach (var item in karakterek)
-			//{
-			//	Console.WriteLine(item.ToString());
-			//}
-		}
+            
+            //foreach (var item in karakterek)
+            //{
+            //	Console.WriteLine(item.ToString());
+            //}
+        }
 		static void AdatokFajlba(List<Karakter> karakterek)
 		{
 			karakterek.Clear();
@@ -89,7 +92,42 @@ namespace KarakterekOOP
             //}
         }
 
-		static void Beolvasas(string fileNev, List<Karakter> karakterek)
+        static void HaromLegjobb(List<Karakter> karakterek)
+        {
+            for (int i = 0; i < karakterek.Count; i++)
+            {
+                for (int j = 0; j < karakterek.Count; j++)
+                {
+                    if ((karakterek[i].Ero + karakterek[i].Szint > karakterek[j].Ero + karakterek[i].Szint))
+                    {
+                        Karakter csere = karakterek[i];
+                        karakterek[i] = karakterek[j];
+                        karakterek[j] = csere;
+                    }
+                }
+            }
+            Console.Write("A három legjobb karakter: ");
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write($"{karakterek[i].Nev}, ");
+            }
+            Console.WriteLine();
+        }
+
+		static void Csata(Karakter karakter1, Karakter karakter2)
+		{
+            if (karakter1.Ero + karakter1.Szint  > karakter2.Ero + karakter2.Szint)
+			{
+                Console.WriteLine($"{karakter1.Nev} győzedelmeskedett {karakter2.Nev} felett");
+			}
+            else
+            {
+                Console.WriteLine($"{karakter2.Nev} győzedelmeskedett {karakter1.Nev} felett");
+            }
+
+        }
+
+        static void Beolvasas(string fileNev, List<Karakter> karakterek)
 		{
 			StreamReader sr = new StreamReader(fileNev);
 			sr.ReadLine();
